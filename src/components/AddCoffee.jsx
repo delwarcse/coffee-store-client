@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import Swal from 'sweetalert2';
 // import toastr from 'toastr';
 // import 'toastr/build/toastr.min.css';
@@ -110,7 +111,11 @@ const AddCoffee = () => {
                     </fieldset>
                 </div>
                 <input type="submit" value="Add Coffee" className="btn btn-block mt-3.5 bg-black text-white" />
+            {/* <button><Link to="/"><li><a>Home</a></li></Link></button> */}
             </form>
+            <br />
+            <br />
+            <div className='flex justify-end'><button className='btn btn-success'><Link to="/">Home</Link></button></div>
         </div>
     );
 };
