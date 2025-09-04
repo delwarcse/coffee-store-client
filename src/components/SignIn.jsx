@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import axios from "axios";
 
 const SignIn = () => {
   const {signInUser}=useContext(AuthContext);
@@ -14,17 +15,26 @@ const SignIn = () => {
           //update last login time
           const lastSignInTime = result?.user?.metadata?.lastSignInTime;
           const loginInfo={email,lastSignInTime};
-            fetch(`http://localhost:5000/users`,{
-                method:"PATCH",
-                headers:{
-                    'content-type':'application/json'
-                },
-                body:JSON.stringify(loginInfo)
-            })
-            .then(res=>res.json())
+
+          //Using axios (this is the good or best practice for PATCH Operation)
+            axios.patch('http://localhost:5000/users',loginInfo)
             .then(data=>{
-                console.log('sign in info update in db',data);
+                console.log(data.data);
             })
+
+          //Using fetch (this is the bad & worst practice for PATCH operation)
+            // fetch(`http://localhost:5000/users`,{
+            //     method:"PATCH",
+            //     headers:{
+            //         'content-type':'application/json'
+            //     },
+            //     body:JSON.stringify(loginInfo)
+            // })
+            // .then(res=>res.json())
+            // .then(data=>{
+            //     console.log('sign in info update in db',data);
+            // })
+            
          })
         .catch(error=>{
           console.log(error);

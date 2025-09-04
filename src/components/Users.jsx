@@ -1,3 +1,5 @@
+// import axios from "axios";
+// import { useEffect, useState } from "react";
 import { useState } from "react";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
@@ -5,6 +7,24 @@ import Swal from "sweetalert2";
 const Users = () => {
     const loadedUser = useLoaderData();
     const [users, setUser] = useState(loadedUser);
+
+    //using Axios for Get Operation start
+    // useEffect(()=>{
+    //     fetch('/Api Link')
+    //     .then(res=>res.json())
+    //     .then(data=>{
+    //         console.log(data);
+    //     })
+    // },[])
+
+    // useEffect(()=>{
+    //     axios.get('/Api Link')
+    //     .then(data=>{
+    //         console.log(data);
+    //     })
+    // },[])
+    //using Axios for Get Operation end
+
     const handleUserDelete = id => {
         Swal.fire({
             title: "Are you sure?",

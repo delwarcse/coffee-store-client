@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import axios from "axios";
 
 
 const SignUp = () => {
@@ -17,22 +18,31 @@ const SignUp = () => {
                 console.log(result.user);
                 const createdAt = result?.user?.metadata?.creationTime;
                 const newUser = { name, email, createdAt }
-
-                //save new user info to the database
-                fetch('http://localhost:5000/users', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(newUser)
+                
+                //save new user info to the database 
+                //Using axios (this is the good or best practice for POST data)
+                axios.post('http://localhost:5000/users',newUser)
+                .then(data=>{
+                    if(data.data.insertedId){
+                        console.log('data added to the database successfully');
+                    }
                 })
-                    .then(res => res.json())
-                    .then(data => {
-                        if(data.insertedId){
-                             console.log('user created to db', data);
-                        }
-                       
-                    })
+
+                //save new user info to the database 
+                //Using fetch (this is the bad & worst practice for POST data)
+                // fetch('http://localhost:5000/users', {
+                //     method: 'POST',
+                //     headers: {
+                //         'content-type': 'application/json'
+                //     },
+                //     body: JSON.stringify(newUser)
+                // })
+                //     .then(res => res.json())
+                //     .then(data => {
+                //         if(data.insertedId){
+                //              console.log('user created to db', data);
+                //         }           
+                //     })
 
             })
             .catch(error => {
